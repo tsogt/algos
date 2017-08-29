@@ -17,13 +17,41 @@ public class APSP2 {
 		// TODO Auto-generated method stub
 		APSP2 obj=new APSP2();
 		obj.readFile("g1");
-		for(int i=0;i<obj.vertices.size()-900;i++) {
-			System.out.print(i+": ");
-			for(int j:obj.vertices.get(i)) {
-				System.out.print(j+" ");
-			}
-			System.out.println();
+		int A[][]=obj.bellmanFord(1);
+		for(int i=0;i<obj.nVert;i++) {
+			
 		}
+		
+//		for(int i=0;i<obj.vertices.size()-900;i++) {
+//			System.out.print(i+": ");
+//			for(int j:obj.vertices.get(i)) {
+//				System.out.print(j+" ");
+//			}
+//			System.out.println();
+//		}
+		
+	}
+	public int[][] bellmanFord(int s) {
+		int A[][]=new int[nVert-1][nVert];
+		for(int i=0;i<nVert;i++) {
+			if(s-1==i) {
+				A[0][s-1]=0;
+			}
+			else
+				A[0][i]=99999;
+		}
+		
+		for(int i=1;i<=nVert-1;i++) {
+			for(int j=0;j<nEdge;j++) {
+//				if(A[i-1][edges.get(j)[0]]!=99999) {
+					if(A[i-1][edges.get(j)[1]]>A[i-1][edges.get(j)[0]+edges.get(j)[2]]) {
+						A[i][edges.get(j)[1]]=A[i-1][edges.get(j)[0]+edges.get(j)[2]];
+					}					
+//				}
+			}
+			
+		}
+		return A;
 	}
 	public void readFile(String filename) {
 		try {
